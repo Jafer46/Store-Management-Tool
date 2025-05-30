@@ -2,6 +2,7 @@ import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import accountGroupService from "../services/account-group.service";
 import { ResponseBuilder } from "../../../utils/response.builder";
+import { GetQuery } from "../../../constants/types.request";
 
 export const createAccountGroup = asyncHandler(
   async (req: Request, res: Response) => {
@@ -17,19 +18,7 @@ export const createAccountGroup = asyncHandler(
 
 export const getAccountGroups = asyncHandler(
   async (req: Request, res: Response) => {
-    const {
-      limit,
-      skip,
-      sort,
-      populate,
-      where,
-    }: {
-      limit?: number;
-      skip?: number;
-      sort?: string;
-      populate?: string[];
-      where?: any;
-    } = req.query;
+    const { limit, skip, sort, populate, where }: GetQuery = req.query;
 
     const accountGroups = await accountGroupService.findAll({
       limit,

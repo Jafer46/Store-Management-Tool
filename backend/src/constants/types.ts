@@ -31,14 +31,19 @@ export enum Document_status {
   Archived = "Archived",
 }
 
-export interface IStatus extends Document {
-  document_status: Document_status;
-  approval_stage: {
+export interface IApproval_Stage extends Document {
+  name: string;
+  stages: {
     level: number;
     name: string;
     isLast: boolean;
     stage_no: number;
   }[];
+}
+
+export interface IStatus extends Document {
+  document_status: Document_status;
+  approval_stage: IApproval_Stage;
 }
 
 export interface IAccount_Group extends Document {
