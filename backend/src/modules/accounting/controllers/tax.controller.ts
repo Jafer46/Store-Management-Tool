@@ -26,7 +26,10 @@ export const getTaxes = asyncHandler(async (req: Request, res: Response) => {
 export const getTax = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   const tax = await taxService.findOne({ where: { _id: id } });
-  if (!tax) throw new Error("Tax not found");
+  if (!tax) {
+    res.status(404);
+    throw new Error("Tax not found");
+  }
   const response = new ResponseBuilder().setSuccess(true).setData(tax).build();
   res.status(200).json(response);
 });
@@ -35,7 +38,10 @@ export const updateTax = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   const { name, type, rate } = req.body;
   const tax = await taxService.update(id, { name, type, rate });
-  if (!tax) throw new Error("Tax not found");
+  if (!tax) {
+    res.status(404);
+    throw new Error("Tax not found");
+  }
   const response = new ResponseBuilder().setSuccess(true).setData(tax).build();
   res.status(200).json(response);
 });
@@ -43,7 +49,10 @@ export const updateTax = asyncHandler(async (req: Request, res: Response) => {
 export const deleteTax = asyncHandler(async (req: Request, res: Response) => {
   const { id } = req.params;
   const tax = await taxService.delete(id);
-  if (!tax) throw new Error("Tax not found");
+  if (!tax) {
+    res.status(404);
+    throw new Error("Tax not found");
+  }
   const response = new ResponseBuilder().setSuccess(true).setData(tax).build();
   res.status(200).json(response);
 });

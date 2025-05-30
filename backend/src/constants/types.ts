@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-enum Status {
+export enum Status {
   Not_Found = 404,
   Server_Error = 500,
   Ok = 200,
@@ -11,7 +11,7 @@ enum Status {
   Conflict = 409,
 }
 
-enum Account_Type {
+export enum Account_Type {
   Expense = "Expense",
   Income = "Income",
   BankAndCash = "BankAndCash",
@@ -21,24 +21,24 @@ enum Account_Type {
   Asset = "Asset",
 }
 
-enum Tax_Type {
+export enum Tax_Type {
   Payable = "Payable",
   Receivable = "Receivable",
 }
 
-interface IStatus extends Document {
+export interface IStatus extends Document {
   document_status: string;
   approval_stage: string;
 }
 
-interface IAccount_Group {
+export interface IAccount_Group extends Document {
   id: string;
   name: string;
   createdAt: Date;
   updatedAt: Date;
 }
 
-interface ITax extends Document {
+export interface ITax extends Document {
   id: string;
   name: string;
   rate: number;
@@ -47,7 +47,7 @@ interface ITax extends Document {
   updatedAt: Date;
 }
 
-interface IAccount extends Document {
+export interface IAccount extends Document {
   id: string;
   name: string;
   number: string;
