@@ -1,3 +1,4 @@
+import { IAccount_Group } from "../../../constants/types";
 import { Schema, model } from "mongoose";
 
 const accountGroupSchema = new Schema<IAccount_Group>(

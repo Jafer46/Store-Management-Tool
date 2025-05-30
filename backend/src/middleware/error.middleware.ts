@@ -1,4 +1,4 @@
-import { ResponseBuilder } from "@/utils/response.builder";
+import { ResponseBuilder } from "../utils/response.builder";
 
 export const errorHandler = (err: any, req: any, res: any, next: any) => {
   const statusCode = res.statusCode ? res.statusCode : 500;

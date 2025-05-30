@@ -1,3 +1,4 @@
+import { IAccount } from "../../../constants/types";
 import { Schema, model } from "mongoose";
 
 const accountSchema = new Schema<IAccount>(

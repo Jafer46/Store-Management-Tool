@@ -1,5 +1,5 @@
-import { Router } from "express";
-const router = Router();
+import express from "express";
+const router: express.Router = express.Router();
 
 router.use("/accounting/taxes", require("./accounting/routes/tax.route"));
 

@@ -1,4 +1,4 @@
-import { ITax } from "@/constants/types";
+import { ITax } from "../../../constants/types";
 import { Schema, model } from "mongoose";
 
 const taxSchema = new Schema<ITax>(

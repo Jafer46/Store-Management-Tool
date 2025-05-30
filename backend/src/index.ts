@@ -2,6 +2,7 @@ import express from "express";
 import "dotenv/config";
 import dbConnect from "./config/db";
 import { errorHandler } from "./middleware/error.middleware";
+import router from "./modules/accounting/routes/tax.route";
 
 dbConnect();
 
@@ -10,7 +11,7 @@ const port = process.env.PORT || 4000;
 const app = express();
 app.use(express.json());
 
-app.use("/api", require("./modules/module.route"));
+app.use("/api", router);
 app.use(errorHandler);
 
 app.listen(port, () => {

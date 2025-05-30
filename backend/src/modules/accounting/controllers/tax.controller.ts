@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import taxService from "../services/tax.service";
-import { ResponseBuilder } from "@/utils/response.builder";
+import { ResponseBuilder } from "../../../utils/response.builder";
 
 export const createTax = asyncHandler(async (req: Request, res: Response) => {
   const { name, type, rate } = req.body;
