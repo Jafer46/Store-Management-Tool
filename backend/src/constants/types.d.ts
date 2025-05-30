@@ -1,5 +1,16 @@
 import { Document } from "mongoose";
 
+enum Status {
+  Not_Found = 404,
+  Server_Error = 500,
+  Ok = 200,
+  Created = 201,
+  BadRequest = 400,
+  Unauthorized = 401,
+  Forbidden = 403,
+  Conflict = 409,
+}
+
 enum Account_Type {
   Expense = "Expense",
   Income = "Income",

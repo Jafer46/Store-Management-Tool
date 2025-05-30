@@ -12,7 +12,10 @@ export const createTax = asyncHandler(async (req: Request, res: Response) => {
 
 export const getTaxes = asyncHandler(async (req: Request, res: Response) => {
   const taxes = await taxService.findAll({});
-  if (!taxes) throw new Error("Taxes not found");
+  if (!taxes) {
+    res.status(404);
+    throw new Error("Taxes not found");
+  }
   const response = new ResponseBuilder()
     .setSuccess(true)
     .setData(taxes)

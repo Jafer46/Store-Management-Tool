@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 import dbConnect from "./config/db";
 import { errorHandler } from "./middleware/error.middleware";
-import router from "./modules/accounting/routes/tax.route";
+import router from "./modules/module.route";
 
 dbConnect();
 
