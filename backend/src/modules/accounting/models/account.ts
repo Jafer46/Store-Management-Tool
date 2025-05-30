@@ -1,4 +1,4 @@
-import { IAccount } from "../../../constants/types";
+import { Document_status, IAccount } from "../../../constants/types";
 import { Schema, model } from "mongoose";
 
 const accountSchema = new Schema<IAccount>(
@@ -9,7 +9,7 @@ const accountSchema = new Schema<IAccount>(
     group: { type: Schema.Types.ObjectId, ref: "AccountGroup", required: true },
     default_tax: { type: Schema.Types.ObjectId, ref: "Tax", required: true },
     status: {
-      document_status: { type: String, required: true },
+      document_status: { type: String, enum: Document_status, required: true },
       approval_stage: { type: String, required: true },
     },
   },
