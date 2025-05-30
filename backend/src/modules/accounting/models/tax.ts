@@ -1,3 +1,4 @@
+import { ITax } from "@/constants/types";
 import { Schema, model } from "mongoose";
 
 const taxSchema = new Schema<ITax>(
@@ -13,4 +14,4 @@ const taxSchema = new Schema<ITax>(
   }
 );
 
-export default model<ITax>("Tax", taxSchema);
+export const Tax = model<ITax>("Tax", taxSchema);

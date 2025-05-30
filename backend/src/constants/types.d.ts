@@ -1,3 +1,5 @@
+import { Document } from "mongoose";
+
 enum Account_Type {
   Expense = "Expense",
   Income = "Income",
@@ -13,7 +15,7 @@ enum Tax_Type {
   Receivable = "Receivable",
 }
 
-interface IStatus {
+interface IStatus extends Document {
   document_status: string;
   approval_stage: string;
 }
@@ -25,7 +27,7 @@ interface IAccount_Group {
   updatedAt: Date;
 }
 
-interface ITax {
+interface ITax extends Document {
   id: string;
   name: string;
   rate: number;
@@ -34,7 +36,7 @@ interface ITax {
   updatedAt: Date;
 }
 
-interface IAccount {
+interface IAccount extends Document {
   id: string;
   name: string;
   number: string;
