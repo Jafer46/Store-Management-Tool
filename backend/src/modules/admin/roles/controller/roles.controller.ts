@@ -70,3 +70,16 @@ export const deleteRole = asyncHandler(async (req: Request, res: Response) => {
   const response = new ResponseBuilder().setData(role).build();
   res.status(200).json(response);
 });
+
+export const deleteManyRoles = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { ids } = req.body;
+    if (!ids || !Array.isArray(ids) || ids.length === 0) {
+      res.status(400);
+      throw new Error("Ids not found");
+    }
+    const roles = await roleService.deleteMany(ids);
+    const response = new ResponseBuilder().setData(roles).build();
+    res.status(200).json(response);
+  }
+);

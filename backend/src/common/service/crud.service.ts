@@ -89,4 +89,8 @@ export class CrudService<T extends Document> {
   async delete(id: string): Promise<T | null> {
     return await this.model.findByIdAndDelete(id).exec();
   }
+
+  async deleteMany(ids: string[]) {
+    return await this.model.deleteMany({ _id: { $in: ids } }).exec();
+  }
 }

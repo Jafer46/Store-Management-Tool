@@ -56,3 +56,23 @@ export const deleteTax = asyncHandler(async (req: Request, res: Response) => {
   const response = new ResponseBuilder().setSuccess(true).setData(tax).build();
   res.status(200).json(response);
 });
+
+export const deleteManyTaxes = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { ids } = req.body;
+    if (!ids || ids.length === 0) {
+      res.status(400);
+      throw new Error("Ids not found");
+    }
+    const taxes = await taxService.deleteMany(ids);
+    if (!taxes) {
+      res.status(404);
+      throw new Error("Taxes not found");
+    }
+    const response = new ResponseBuilder()
+      .setSuccess(true)
+      .setData(taxes)
+      .build();
+    res.status(200).json(response);
+  }
+);
