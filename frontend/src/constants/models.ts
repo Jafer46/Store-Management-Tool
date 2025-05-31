@@ -14,7 +14,7 @@ export const MRole = {
       edit: "Boolean",
     },
   ],
-  maxLevel: "formula: this.level*4",
+  maxLevel: "formula: this.level + this.id /4",
 };
 
 export const MRoleAccess = {
