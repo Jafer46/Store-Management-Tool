@@ -43,7 +43,7 @@ export interface IApproval_Stage extends Document {
 
 export interface IStatus extends Document {
   document_status: Document_status;
-  approval_stage: IApproval_Stage;
+  approval_stage: string;
 }
 
 export interface IAccount_Group extends Document {
@@ -93,11 +93,29 @@ export interface IContact extends Document {
   status: IStatus;
 }
 
+export interface IDocument extends Document {
+  id: string;
+  name: string;
+  description: string;
+  path: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface IRole extends Document {
   id: string;
   name: string;
   description: string;
   level: number;
+  access: {
+    document: IDocument;
+    create: boolean;
+    delete: boolean;
+    read: boolean;
+    add: boolean;
+    browse: boolean;
+    edit: boolean;
+  };
   status: IStatus;
   createdAt: string;
   updatedAt: string;
