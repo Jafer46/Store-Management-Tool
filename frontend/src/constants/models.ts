@@ -1,8 +1,8 @@
 export const MRole = {
-  id: "String",
-  name: "String",
-  description: "String",
-  level: "Number",
+  id: { type: "String", required: true, default: "", visible: true },
+  name: { type: "String", required: false, default: "", visible: true },
+  description: { type: "String", required: false, default: "", visible: true },
+  level: { type: "Number", required: false, default: 0, visible: true },
   access: [
     {
       document: "String",
