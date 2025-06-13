@@ -7,12 +7,16 @@ class ResponseObject {
 }
 
 export class ResponseBuilder<T> {
-  public success: boolean = true;
-  public message: string = "success";
-  public data: T | null = null;
+  private success: boolean = true;
+  private message: string = "success";
+  private data: T | null = null;
+  private page: number = 1;
+  private items: number = 1;
 
   public setData(data: T) {
     this.data = data;
+    if (!data) this.items = 0;
+    if (Array.isArray(data)) this.items = data.length;
     return this;
   }
 
@@ -23,6 +27,11 @@ export class ResponseBuilder<T> {
 
   public setSuccess(success: boolean) {
     this.success = success;
+    return this;
+  }
+
+  public setPage(page: number) {
+    this.page = page;
     return this;
   }
 
