@@ -2,7 +2,9 @@ class ResponseObject {
   constructor(
     public success: boolean,
     public message: string,
-    public data: any
+    public data: any,
+    public page: number = 1,
+    public items: number = 1
   ) {}
 }
 
@@ -36,6 +38,12 @@ export class ResponseBuilder<T> {
   }
 
   public build() {
-    return new ResponseObject(this.success, this.message, this.data);
+    return new ResponseObject(
+      this.success,
+      this.message,
+      this.data,
+      this.page,
+      this.items
+    );
   }
 }

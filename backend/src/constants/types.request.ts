@@ -4,4 +4,5 @@ export interface GetQuery {
   sort?: string;
   populate?: string[];
   where?: any;
+  page?: number;
 }
