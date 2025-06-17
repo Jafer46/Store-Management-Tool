@@ -1,4 +1,4 @@
-import { Model, Document, RootFilterQuery } from "mongoose";
+import { Model, Document, RootFilterQuery, Error } from "mongoose";
 
 interface FindProps<T> {
   where?: RootFilterQuery<T>;
@@ -11,6 +11,18 @@ interface FindProps<T> {
 export class CrudService<T extends Document> {
   constructor(private model: Model<T>) {}
 
+  async validate(data: Partial<T>): Promise<Error.ValidationError | null> {
+    const doc = new this.model(data);
+    try {
+      await doc.validate();
+      return null; // valid
+    } catch (err) {
+      if (err instanceof Error.ValidationError) {
+        return err; // invalid
+      }
+      throw err; // some other error
+    }
+  }
   async create(data: Partial<T>): Promise<T> {
     const doc = new this.model(data);
     return await doc.save();
@@ -78,6 +90,10 @@ export class CrudService<T extends Document> {
 
   async update(id: string, data: Partial<T>): Promise<T | null> {
     return await this.model.findByIdAndUpdate(id, data, { new: true }).exec();
+  }
+
+  async updateMany(ids: string[], data: Partial<T>) {
+    return await this.model.updateMany({ _id: { $in: ids } }, data).exec();
   }
 
   async delete(id: string): Promise<T | null> {

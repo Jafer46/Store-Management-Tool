@@ -151,3 +151,13 @@ export interface IUser extends Document {
   updatedAt: Date;
   status: IStatus;
 }
+
+export interface IProductCategory extends Document {
+  id: string;
+  name: string;
+  description: string;
+  account: IAccount;
+  status: IStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
