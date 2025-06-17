@@ -1,95 +1,107 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import accountGroupService from "../services/account-group.service";
+import { contactTypeService } from "../services/contact-type.service";
 import { ResponseBuilder } from "../../../utils/response.builder";
 import { GetQuery } from "../../../constants/types.request";
 import { parseRequestQuery } from "../../../utils/request.parser";
 
-export const createAccountGroup = asyncHandler(
+export const createContactType = asyncHandler(
   async (req: Request, res: Response) => {
-    const { name } = req.body;
-    const accountGroup = await accountGroupService.create({ name });
+    const { name, description } = req.body;
+    const contactType = await contactTypeService.create({ name, description });
     const response = new ResponseBuilder()
       .setSuccess(true)
-      .setData(accountGroup)
+      .setData(contactType)
       .build();
     res.status(201).json(response);
   }
 );
 
-export const getAccountGroups = asyncHandler(
+export const getContactTypes = asyncHandler(
   async (req: Request, res: Response) => {
     const { limit, skip, sort, populate, where }: GetQuery = parseRequestQuery(
       req.query
     );
-
-    const accountGroups = await accountGroupService.findAll({
+    const contactTypes = await contactTypeService.findAll({
       limit,
       skip,
       sort,
       populate,
       where,
     });
-    if (!accountGroups) {
-      res.status(404);
-      throw new Error("Account Groups not found");
-    }
     const response = new ResponseBuilder()
       .setSuccess(true)
-      .setData(accountGroups)
+      .setData(contactTypes)
       .build();
     res.status(200).json(response);
   }
 );
 
-export const getAccountGroup = asyncHandler(
+export const getContactType = asyncHandler(
   async (req: Request, res: Response) => {
     const { id } = req.params;
+    console.log(id);
     const { populate }: { populate?: string[] } = req.query;
-    const accountGroup = await accountGroupService.findOne({
-      where: { _id: id },
+    const contactType = await contactTypeService.findOne({
+      where: { $or: [{ _id: id }] },
       populate,
     });
-    if (!accountGroup) {
+    if (!contactType) {
       res.status(404);
-      throw new Error("Account Group not found");
+      throw new Error("Contact Type not found");
     }
     const response = new ResponseBuilder()
       .setSuccess(true)
-      .setData(accountGroup)
+      .setData(contactType)
       .build();
     res.status(200).json(response);
   }
 );
 
-export const updateAccountGroup = asyncHandler(
+export const updateContactType = asyncHandler(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { name } = req.body;
-    const accountGroup = await accountGroupService.update(id, { name });
-    if (!accountGroup) {
+
+    const { name, description } = req.body;
+    const contactType = await contactTypeService.update(id, {
+      name,
+      description,
+    });
+    if (!contactType) {
       res.status(404);
-      throw new Error("Account Group not found");
+      throw new Error("Contact Type not found");
     }
     const response = new ResponseBuilder()
       .setSuccess(true)
-      .setData(accountGroup)
+      .setData(contactType)
       .build();
     res.status(200).json(response);
   }
 );
 
-export const deleteAccountGroup = asyncHandler(
+export const deleteContactType = asyncHandler(
   async (req: Request, res: Response) => {
     const { id } = req.params;
-    const accountGroup = await accountGroupService.delete(id);
-    if (!accountGroup) {
-      res.status(404);
-      throw new Error("Account Group not found");
-    }
+    const contactType = await contactTypeService.delete(id);
     const response = new ResponseBuilder()
       .setSuccess(true)
-      .setData(accountGroup)
+      .setData(contactType)
+      .build();
+    res.status(200).json(response);
+  }
+);
+
+export const deleteManyContactTypes = asyncHandler(
+  async (req: Request, res: Response) => {
+    const { ids } = req.body;
+    if (!ids || ids.length === 0) {
+      res.status(400);
+      throw new Error("Ids not found");
+    }
+    const contactTypes = await contactTypeService.deleteMany(ids);
+    const response = new ResponseBuilder()
+      .setSuccess(true)
+      .setData(contactTypes)
       .build();
     res.status(200).json(response);
   }

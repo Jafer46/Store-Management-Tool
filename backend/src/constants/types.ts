@@ -31,6 +31,11 @@ export enum Document_status {
   Archived = "Archived",
 }
 
+export interface Accounts {
+  expenseAccount: IAccount;
+  incomeAccount: IAccount;
+}
+
 export interface IApproval_Stage extends Document {
   name: string;
   stages: {
@@ -74,6 +79,14 @@ export interface IAccount extends Document {
   status: IStatus;
 }
 
+export interface IContact_Type extends Document {
+  id: string;
+  name: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface IContact extends Document {
   id: string;
   full_name: string;
@@ -84,9 +97,12 @@ export interface IContact extends Document {
     kebele: string;
     house_no: string;
   };
-  phone: string;
-  email: string;
+  phone?: string;
+  email?: string;
   tax_id?: string;
+  individual: boolean;
+  contact_type: IContact_Type;
+  accounts: Accounts;
 
   createdAt: Date;
   updatedAt: Date;

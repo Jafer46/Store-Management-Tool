@@ -1,7 +1,7 @@
-import { Model, Document } from "mongoose";
+import { Model, Document, RootFilterQuery } from "mongoose";
 
 interface FindProps<T> {
-  where?: Partial<T>;
+  where?: RootFilterQuery<T>;
   limit?: number;
   skip?: number;
   sort?: string;
@@ -54,13 +54,7 @@ export class CrudService<T extends Document> {
     return await query.exec();
   }
 
-  async findOne({
-    where,
-    populate,
-  }: {
-    where: Partial<T>;
-    populate?: string[];
-  }): Promise<T | null> {
+  async findOne({ where, populate }: FindProps<T>): Promise<T | null> {
     let query = this.model.findOne({ where });
 
     // Populate if provided
