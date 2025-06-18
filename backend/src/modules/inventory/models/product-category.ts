@@ -10,8 +10,13 @@ const productCategorySchema = new Schema<IProductCategory>(
       incomeAccount: { type: Schema.Types.ObjectId, ref: "Account" },
     },
     status: {
-      document_status: { type: String, required: true },
-      approval_stage: { type: String, required: true },
+      document_status: {
+        type: String,
+        enum: ["Active", "Inactive"],
+        required: true,
+        default: "Active",
+      },
+      approval_stage: { type: String, required: true, default: "Draft" },
     },
   },
   {

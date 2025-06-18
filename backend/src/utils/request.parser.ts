@@ -1,4 +1,3 @@
-import { Request } from "express";
 import { GetQuery } from "../constants/types.request";
 
 const parseRequestQuery = (query: any): GetQuery => {
@@ -13,6 +12,12 @@ const parseRequestQuery = (query: any): GetQuery => {
     };
 
   const page = query.skip && query.limit ? query.skip / query.limit + 1 : 1;
+  if (query.where) {
+    query.where = JSON.parse(query.where);
+  }
+  if (query.populate) {
+    query.populate = query.populate.split(",");
+  }
 
   return {
     limit: query.limit || 10,
