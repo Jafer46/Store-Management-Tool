@@ -161,3 +161,49 @@ export interface IProductCategory extends Document {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IUnitOfMeasure extends Document {
+  name: string;
+  conversion: {
+    unit: string;
+    ratio: number;
+  }[];
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IWarehouse extends Document {
+  name: string;
+  description: string;
+  address: {
+    city: string;
+    zone: string;
+    wereda: string;
+    kebele: string;
+    house_no: string;
+  };
+  createdAt: Date;
+  updatedAt: Date;
+}
+export interface IProduct extends Document {
+  id: string;
+  name: string;
+  reference?: string;
+  description?: string;
+  price?: number;
+  cost?: number;
+  shelf_life?: number;
+  product_type: string;
+  image?: string;
+  salable: boolean;
+  purchaseable: boolean;
+  unit: IUnitOfMeasure;
+  default_warehouse?: IWarehouse;
+  default_tax: ITax;
+  default_account?: IAccount;
+  category: IProductCategory;
+  account: IAccount;
+  status: IStatus;
+  createdAt: Date;
+  updatedAt: Date;
+}
